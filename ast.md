@@ -39,11 +39,6 @@ function fn(a, b) {}
   </ul>
 </div>
 
-webpack   import -> require()
-
-ts -> js
-
-eslint
 
 {
   tag: 'div',
@@ -79,4 +74,3 @@ eslint
   ]
 }
 
-虚拟DOM
