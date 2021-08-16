@@ -289,9 +289,163 @@
     return root;
   }
 
+  /**
+   * _c()=>createElement()
+   * _v()=>createTextNode()
+   * _s()=>{{data}}=>_s(data)
+   */
+  //匹配{{}}
+  const defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g;
+
+  function formatProps(attrs) {
+    let attrStr = '';
+
+    for (var i = 0; i < attrs.length; i++) {
+      //attr: id:app style{color   fontsize:}
+      let attr = attrs[i];
+
+      if (attr.name === 'style') {
+        let styleAttrs = {};
+        attr.value.split(';').map(styleAttr => {
+          let [key, value] = styleAttr.split(':');
+          styleAttrs[key] = value;
+        });
+        attr.value = styleAttrs;
+      } //style内容 字符串转object
+
+
+      attrStr += `${attr.name}:${JSON.stringify(attr.value)},`;
+    } //`{${attrStr.slice(0, -1)}}` : {id:"app",style:{"color":"red","font-size":" 20px"}}
+
+
+    return `{${attrStr.slice(0, -1)}}`;
+  }
+
+  function generateChild(node) {
+    //普通节点
+    if (node.type === 1) {
+      return generate(node);
+    } //文本节点
+    else if (node.type === 3) {
+        let text = node.text; //没有双大括号直接返回
+
+        if (!defaultTagRE.test(text)) {
+          return `_v(${JSON.stringify(text)})`;
+        }
+
+        let match;
+        let index;
+        let lastIndex = defaultTagRE.lastIndex = 0;
+        let textArr = [];
+
+        while (match = defaultTagRE.exec(text)) {
+          index = match.index;
+
+          if (index > lastIndex) {
+            //匹配到{上一次匹配结束和此次匹配到的 {}}之间的文本
+            textArr.push(JSON.stringify(text.slice(lastIndex, index)));
+          } // match[1] {{}}内部的值
+
+
+          textArr.push(`_s(${match[1].trim()})`); // match[0] {{}}整体
+          // 将下标移动到第一个{{}}语法之后
+
+          lastIndex = index + match[0].length;
+        } // 如果匹配完成最后一个{{}}语法后还有内容，就放入最后一个{{}}之后的文本
+
+
+        if (lastIndex < text.length) {
+          textArr.push(JSON.stringify(text.slice(lastIndex)));
+        } // console.log(`_v(${textArr.join('+')})`)
+
+
+        return `_v(${textArr.join('+')})`;
+      }
+  }
+
+  function getChildren(el) {
+    const children = el.children;
+
+    if (children) {
+      return children.map(c => generateChild(c)).join(',');
+    }
+  }
+
+  function generate(el) {
+    let children = getChildren(el);
+    let code = `_c('${el.tag}',${el.attrs.length > 0 ? `${formatProps(el.attrs)}` : 'undefined'}${children ? `,${children}` : ''})`;
+    return code;
+  }
+
   function compileToRenderFunction(html) {
-    const ast = parseHtmlToAst(html);
-    console.log(ast);
+    //template->ast
+    const ast = parseHtmlToAst(html); //ast ->render
+
+    const code = generate(ast); //render改变this后返回到init.js，赋值给options上的render
+
+    const render = new Function(`
+        with(this){return ${code}}
+        `);
+    return render;
+  }
+
+  function patch(oldNode, vNode) {
+    let el = createElement(vNode);
+    let parentElement = oldNode.parentNode; //找到原来的节点，放在原来的后面，再去掉原来的
+
+    parentElement.insertBefore(el, oldNode.nextSibling);
+    parentElement.removeChild(oldNode);
+  }
+
+  function createElement(vnode) {
+    const {
+      tag,
+      props,
+      children,
+      text
+    } = vnode; //有标签名说明是节点不是文本
+
+    if (typeof tag === 'string') {
+      vnode.el = document.createElement(tag);
+      updateProps(vnode);
+      children.map(child => {
+        vnode.el.appendChild(createElement(child));
+      });
+    } else {
+      vnode.el = document.createTextNode(text);
+    }
+
+    return vnode.el;
+  }
+
+  function updateProps(vnode) {
+    const el = vnode.el;
+    const newProps = vnode.props || {};
+
+    for (let key in newProps) {
+      if (key === 'style') {
+        for (let styleKey in newProps.style) {
+          el.style[styleKey] = newProps.style[styleKey];
+        }
+      } else if (key === 'class') {
+        el.className = el.class;
+      } else {
+        el.setAttribute(key, newProps[key]);
+      }
+    }
+  }
+
+  function mountComponent(vm) {
+    //vnode转化为真实节点，打到真实dom上
+    //_render():render调用vm实例上的this，产生vnode
+    vm._update(vm._render());
+  }
+
+  function lifecycleMixin(Vue) {
+    Vue.prototype._update = function (vnode) {
+      const vm = this;
+      patch(vm.$el, vnode);
+    };
   }
 
   function initMixin(Vue) {
@@ -320,7 +474,51 @@
 
         const render = compileToRenderFunction(template);
         options.render = render;
-      }
+      } //挂载到真实dom
+
+
+      mountComponent(vm);
+    };
+  }
+
+  // tag，attrs，剩下的都是children
+  function createElement$1(tag, attrs = {}, ...children) {
+    return vnode(tag, attrs, children);
+  }
+
+  function createTextVnode(text) {
+    return vnode(undefined, undefined, undefined, text);
+  }
+
+  function vnode(tag, props, children, text) {
+    return {
+      tag,
+      props,
+      children,
+      text
+    };
+  }
+
+  function renderMixin(Vue) {
+    Vue.prototype._c = function () {
+      return createElement$1(...arguments);
+    };
+
+    Vue.prototype._s = function (value) {
+      if (value === null) return;
+      return typeof value === 'object' ? JSON.stringify(value) : value;
+    };
+
+    Vue.prototype._v = function (text) {
+      return createTextVnode(...arguments);
+    };
+
+    Vue.prototype._render = function () {
+      const vm = this;
+      const render = vm.$options.render; //render 的this指向vm
+
+      const vnode = render.call(vm);
+      return vnode;
     };
   }
 
@@ -328,7 +526,10 @@
     this._init(options);
   }
 
-  initMixin(Vue);
+  initMixin(Vue); //生命周期混入
+
+  lifecycleMixin(Vue);
+  renderMixin(Vue);
 
   return Vue;
 
