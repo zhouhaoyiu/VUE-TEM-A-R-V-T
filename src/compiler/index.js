@@ -10,8 +10,7 @@ function compileToRenderFunction(html) {
   const render = new Function(`
         with(this){return ${code}}
         `)
-
- return render
+  return render
 }
 
 export {
