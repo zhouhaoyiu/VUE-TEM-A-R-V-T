@@ -16,7 +16,7 @@ export default {
     }),
     serve({
       open: true,
-      port: 8080,
+      port: 8099,
       contentBase: '',
       openPage: '/index.html'
     }),

@@ -6,6 +6,7 @@
  * endTag：结束标签
  */
 const attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
+const dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+?\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
 const ncname = `[a-zA-Z_][\\-\\.0-9_a-zA-Z]*`
 const qnameCapture = `((?:${ncname}\\:)?${ncname})`
 const startTagOpen = new RegExp(`^<${qnameCapture}`)
@@ -80,7 +81,7 @@ function parseHtmlToAst(html) {
       //截取掉了<div 
       advance(start[0].length)
       //如果没有匹配到结束标签，就匹配属性赋值给attr,直到匹配到结束标签
-      while (!(end = html.match(startTagClose)) && (attr = html.match(attribute))) {
+      while (!(end = html.match(startTagClose)) && ((attr = html.match(attribute)) || (attr = html.match(dynamicArgAttribute)))) {
         // attr: 0:id="app" 1:id 2:= 3:app
         match.attrs.push({
           name: attr[1],

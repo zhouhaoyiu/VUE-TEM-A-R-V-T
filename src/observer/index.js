@@ -33,12 +33,12 @@ function defineReactive (data, key, value) {
   observe(value);
   Object.defineProperty(data, key, {
     get () {
-      console.log('响应式获取：' + value);
+      // console.log('响应式获取：' + value);
       return value;
     },
     set (newValue) {
       if (value === newValue) return;
-      console.log('响应式设置：' + key + ' = ' + newValue);
+      // console.log('响应式设置：' + key + ' = ' + newValue);
       observe(newValue);
       value = newValue;
     }

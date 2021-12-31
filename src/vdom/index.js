@@ -22,7 +22,7 @@ function renderMixin(Vue) {
 
     //render 的this指向vm
     const vnode = render.call(vm)
-    console.log(JSON.stringify(vnode))
+    console.log(vnode)
     return vnode
   }
 }

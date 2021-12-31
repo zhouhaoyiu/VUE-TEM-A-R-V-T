@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-
-<body>
-  <div id="app" style="color:red;font-size: 20px">
-    你好0,{{name}},你好1,{{name}},你好2
-    <span class="text" style="color: green;">{{ age }}</span>
-  </div>
-  <!-- <div id="app" style="color: red;font-size: 20px;">    
+  <body>
+    <div id="app" v-for="i in items" style="color: red; font-size: 20px">
+      <span> 你好0,{{name}},你好1,{{name}},你好2 {{ info.job }} </span>
+      <span class="text" style="color: green">{{ age }}</span>
+    </div>
+    <!-- <div id="app" style="color: red;font-size: 20px;">    
     hello     {{name}}
     <h1>{{ name }}</h1>
     <ul>
@@ -21,34 +20,35 @@
     </ul>
   </div> -->
 
-  <script src="dist/umd/vue.js"></script>
-  <script>
-
-    //render >template >el
-    let vm = new Vue({
-      el: '#app',
-      data() {
-        return {
-          name: '周浩宇',
-          age: 21,
-          info: {
-            job: 'pilot',
-            plane: [
-              {
-                id: 1,
-                name: '737'
-              },
-              {
-                id: 2,
-                name: '320'
-              }
-            ]
-          },
-          hobby: ['lol', 'vue', 'react']
-        }
-      }
-    })
-  </script>
-</body>
-
+    <script src="dist/umd/vue.js"></script>
+    <script>
+      // const attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
+      // const dynamicArgAttribute = /^\s*((?:z-[\w-]+:|@|:|#)\[[^=]+?\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
+      // console.log('v-for="i in items"'.match(attribute));
+      //render >template >el
+      let vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            name: "周浩宇",
+            age: 21,
+            info: {
+              job: "pilot",
+              plane: [
+                {
+                  id: 1,
+                  name: "737",
+                },
+                {
+                  id: 2,
+                  name: "320",
+                },
+              ],
+            },
+            hobby: ["lol", "vue", "react"],
+          };
+        },
+      });
+    </script>
+  </body>
 </html>

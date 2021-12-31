@@ -1,0 +1,52 @@
+Date : 2021-12-29 12:45:53
+Directory : d:\VUE-TEM-A-R-V-T
+Total : 19 files,  1047 codes, 118 comments, 285 blanks, all 1450 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         15 |        848 |        110 |        241 |      1,199 |
+| Markdown   |          2 |        138 |          0 |         40 |        178 |
+| HTML       |          1 |         41 |          8 |          3 |         52 |
+| JSON       |          1 |         20 |          0 |          1 |         21 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------+------------+------------+------------+------------+------------+
+| path                                         | files      | code       | comment    | blank      | total      |
++----------------------------------------------+------------+------------+------------+------------+------------+
+| .                                            |         19 |      1,047 |        118 |        285 |      1,450 |
+| dist                                         |          1 |        384 |         36 |        119 |        539 |
+| dist\umd                                     |          1 |        384 |         36 |        119 |        539 |
+| src                                          |         13 |        450 |         64 |        121 |        635 |
+| src\compiler                                 |          3 |        170 |         56 |         49 |        275 |
+| src\observer                                 |          2 |         82 |          0 |         17 |         99 |
+| src\vdom                                     |          3 |         78 |          4 |         17 |         99 |
++----------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                     | language   | code       | comment    | blank      | total      |
++----------------------------------------------+------------+------------+------------+------------+------------+
+| d:\VUE-TEM-A-R-V-T\Readme.md                 | Markdown   |         67 |          0 |         34 |        101 |
+| d:\VUE-TEM-A-R-V-T\ast.md                    | Markdown   |         71 |          0 |          6 |         77 |
+| d:\VUE-TEM-A-R-V-T\dist\umd\vue.js           | JavaScript |        384 |         36 |        119 |        539 |
+| d:\VUE-TEM-A-R-V-T\index.html                | HTML       |         41 |          8 |          3 |         52 |
+| d:\VUE-TEM-A-R-V-T\package.json              | JSON       |         20 |          0 |          1 |         21 |
+| d:\VUE-TEM-A-R-V-T\rollup.config.js          | JavaScript |         14 |         10 |          1 |         25 |
+| d:\VUE-TEM-A-R-V-T\src\compiler\astParser.js | JavaScript |         99 |         35 |         28 |        162 |
+| d:\VUE-TEM-A-R-V-T\src\compiler\generate.js  | JavaScript |         58 |         18 |         19 |         95 |
+| d:\VUE-TEM-A-R-V-T\src\compiler\index.js     | JavaScript |         13 |          3 |          2 |         18 |
+| d:\VUE-TEM-A-R-V-T\src\index.js              | JavaScript |         10 |          1 |          5 |         16 |
+| d:\VUE-TEM-A-R-V-T\src\init.js               | JavaScript |         31 |          1 |         10 |         42 |
+| d:\VUE-TEM-A-R-V-T\src\lifecycle.js          | JavaScript |         14 |          2 |          4 |         20 |
+| d:\VUE-TEM-A-R-V-T\src\observer\array.js     | JavaScript |         34 |          0 |          7 |         41 |
+| d:\VUE-TEM-A-R-V-T\src\observer\index.js     | JavaScript |         48 |          0 |         10 |         58 |
+| d:\VUE-TEM-A-R-V-T\src\state.js              | JavaScript |         35 |          0 |         15 |         50 |
+| d:\VUE-TEM-A-R-V-T\src\utils.js              | JavaScript |         30 |          0 |          4 |         34 |
+| d:\VUE-TEM-A-R-V-T\src\vdom\index.js         | JavaScript |         23 |          1 |          8 |         32 |
+| d:\VUE-TEM-A-R-V-T\src\vdom\patch.js         | JavaScript |         37 |          2 |          6 |         45 |
+| d:\VUE-TEM-A-R-V-T\src\vdom\vnode.js         | JavaScript |         18 |          1 |          3 |         22 |
+| Total                                        |            |      1,047 |        118 |        285 |      1,450 |
++----------------------------------------------+------------+------------+------------+------------+------------+
