@@ -2,19 +2,15 @@
   "name": "my-vue",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
+    "build": "rollup -c",
     "dev": "rollup -c -w"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
-    "rollup": "^2.26.11",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-serve": "^1.0.4"
+  "devDependencies": {
+    "rollup": "^4.53.3"
   }
 }

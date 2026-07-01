@@ -1,5 +1,5 @@
-import { newArrMethods } from "./array";
-import { isObject, isArray, setConstantProperty } from '../utils';
+import { newArrMethods } from './array.js';
+import { isObject, isArray, setConstantProperty } from '../utils.js';
 
 class Observer {
   

@@ -1,4 +1,4 @@
-import { createElement, createTextVnode } from "./vnode";
+import { createElement, createTextVnode } from './vnode.js';
 
 function renderMixin(Vue) {
 

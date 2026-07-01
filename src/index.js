@@ -1,6 +1,6 @@
-import { initMixin } from './init';
-import { lifecycleMixin } from './lifecycle';
-import { renderMixin } from './vdom';
+import { initMixin } from './init.js';
+import { lifecycleMixin } from './lifecycle.js';
+import { renderMixin } from './vdom/index.js';
 
 function Vue(options) {
   this._init(options);
@@ -12,4 +12,3 @@ lifecycleMixin(Vue)
 
 renderMixin(Vue)
 export default Vue;
-

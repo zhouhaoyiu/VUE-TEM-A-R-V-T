@@ -1,5 +1,5 @@
-import { observe } from "./observer";
-import { proxy } from './utils';
+import { observe } from './observer/index.js';
+import { proxy } from './utils.js';
 
 function initState (vm) {
   const options = vm.$options;

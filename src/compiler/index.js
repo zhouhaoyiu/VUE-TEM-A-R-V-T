@@ -1,5 +1,5 @@
-import { parseHtmlToAst } from './astParser'
-import { generate } from './generate'
+import { parseHtmlToAst } from './astParser.js'
+import { generate } from './generate.js'
 
 function compileToRenderFunction(html) {
   //template->ast

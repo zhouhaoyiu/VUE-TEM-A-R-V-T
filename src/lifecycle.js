@@ -1,4 +1,4 @@
-import { patch } from "./vdom/patch"
+import { patch } from './vdom/patch.js'
 
 function mountComponent(vm) {
 

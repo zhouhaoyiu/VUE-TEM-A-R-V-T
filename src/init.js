@@ -1,6 +1,6 @@
-import { initState } from "./state";
-import { compileToRenderFunction } from './compiler'
-import { mountComponent } from "./lifecycle";
+import { initState } from './state.js';
+import { compileToRenderFunction } from './compiler/index.js'
+import { mountComponent } from './lifecycle.js';
 
 function initMixin(Vue) {
   Vue.prototype._init = function (options) {
